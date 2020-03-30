@@ -32,7 +32,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role getById(long id) {
+    public Role getById(Long id) {
         return em.find(Role.class, id);
     }
 

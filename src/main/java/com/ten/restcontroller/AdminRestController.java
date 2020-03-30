@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -47,22 +48,49 @@ public class AdminRestController {
     }
 
 
+    @PostMapping("/create")
+    public void postAdd(@RequestBody UserDTO userDTO) {
+        User newUser = new User();
+        newUser.setLogin(userDTO.getLogin());
+        newUser.setPassword(userDTO.getPassword());
+        newUser.setRoles(getRolesbyID(userDTO.getRole()));//??
+        userService.insertUser(newUser);
+    }
+
+    @PostMapping("/doUpdate")
+    public void doUpdate(@RequestBody UserDTO userDTO) {
+        User updatedUser = userService.selectUser(userDTO.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
+        updatedUser.setId(userDTO.getId());
+        updatedUser.setLogin(userDTO.getLogin());
+        updatedUser.setPassword(userDTO.getPassword());
+        updatedUser.setRoles(getRolesbyID(userDTO.getRole()));
+        userService.updateUser(updatedUser);
+    }
 
 
 
-//    @PostMapping("/admin/create")
-//    public void postAdd(@RequestBody UserDTO userDTO) {
-//        User newUser = new User();
-//        newUser.setLogin(userDTO.getLogin());
-//        newUser.setPassword(userDTO.getPassword());
-//        newUser.setRoles(getRolesbyID(userDTO.getRole()));
-//        userService.insertUser(newUser);
-//    }
-//
-//    private Set<Role> getRolesbyID(Long id) {
-//        return roleService.getRolesbyID(id);
-//
-//    }
+
+    private Set<Role> getRolesbyID(Long id) {
+        return roleService.getRolesbyID(id);
+    }
+
+    @GetMapping("/getRoleById/{id}")
+    public Role getRoleById(@PathVariable Long id) {
+        return roleService.getRoleById(id);//тут риходит нулл теперь приходит нужное
+    }
+
+    @GetMapping("getUserById/{id}")
+    public User getUserById(@PathVariable long id) {
+        return userService.selectUser(id);
+
+    }
+
+
+
+
+
+
+
 //
 //    @PostMapping(value = {"/doUpdate"})
 //    ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {

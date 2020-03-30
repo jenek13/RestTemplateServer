@@ -26,20 +26,9 @@ public class UserDaoImpl implements UserDAO {
     @Override
     public User getUserByLogin(String login) {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class);
-       // Query query = em.createQuery("SELECT u FROM User u WHERE u.login = :login");
-
         query.setParameter("login", login);
-        //try {
-            return query.getSingleResult();
-        //} catch (NoResultException nre) {
-         //   return null;
-        //}
-       // return null;
+        return query.getSingleResult();
     }
-
-
-
-
 
 
     @Override
@@ -54,7 +43,6 @@ public class UserDaoImpl implements UserDAO {
 
     @Override
     public void removeUser(long id) {
-        //TypedQuery<User> query = em.createQuery("DELETE from User u WHERE u.id = :id", User.class);нужно было удалить user.class
         Query query = em.createQuery("DELETE from User u WHERE u.id = :id");
         query.setParameter("id", id);
         query.executeUpdate();
