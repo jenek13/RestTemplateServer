@@ -36,8 +36,8 @@ public class AdminRestController {
         return ResponseEntity.ok(userService.listUser());
     }
 
-    @GetMapping("/getLoggedUser")
-    public User getLoggedUser(String login) {
+    @GetMapping("/getLoggedUser/{login}")
+    public User getLoggedUser(@PathVariable String login) {
         return userService.getUserByLogin(login);
     }
 

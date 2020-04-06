@@ -27,8 +27,18 @@ public class UserDaoImpl implements UserDAO {
     public User getUserByLogin(String login) {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.login = :login", User.class);
         query.setParameter("login", login);
-        return query.getSingleResult();
+        User user = new User();
+        try {
+            user = query.getSingleResult();
+        } catch (NoResultException e) {
+            System.out.println(e);
+        }
+        //return query.getSingleResult();
+        return user;
     }
+
+
+
 
 
     @Override
