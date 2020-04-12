@@ -1,5 +1,6 @@
 package com.ten.security.service;
 
+import com.ten.dto.UserDTO;
 import com.ten.model.User;
 import com.ten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {	//сервис, отвечающий за получение аутентификации пользователя

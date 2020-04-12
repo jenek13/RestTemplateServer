@@ -1,5 +1,6 @@
 package com.ten.service;
 
+import com.ten.dto.UserDTO;
 import com.ten.model.User;
 
 import java.sql.SQLException;
@@ -14,4 +15,6 @@ public interface UserService<T> {
     void updateUser(User user) ;
 
     User getUserByLogin(String login);
+
+    //UserDTO getUserByLogin(String login);
 }

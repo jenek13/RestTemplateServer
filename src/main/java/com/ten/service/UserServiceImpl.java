@@ -47,12 +47,12 @@ public class UserServiceImpl implements UserService {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDAO.addUser(user);
-
-        //String encodedPassword = bCryptPasswordEncoder.encode(password);
     }
 
     @Override
     public void updateUser(User user)  {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         try {
             userDAO.editUser(user);
         } catch (SQLException e) {
@@ -64,7 +64,5 @@ public class UserServiceImpl implements UserService {
     public User getUserByLogin(String login) {
         return userDAO.getUserByLogin(login);
     }
-
-
 
 }

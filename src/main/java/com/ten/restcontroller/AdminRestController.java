@@ -1,4 +1,5 @@
 package com.ten.restcontroller;
+
 import com.ten.dto.UserDTO;
 import com.ten.model.Role;
 import com.ten.model.User;
@@ -7,14 +8,7 @@ import com.ten.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -36,9 +30,19 @@ public class AdminRestController {
         return ResponseEntity.ok(userService.listUser());
     }
 
+//    @GetMapping("/getLoggedUser/{login}")
+//    public User getLoggedUser(@PathVariable String login) {
+//        return userService.getUserByLogin(login);
+//    }
+
     @GetMapping("/getLoggedUser/{login}")
-    public User getLoggedUser(@PathVariable String login) {
-        return userService.getUserByLogin(login);
+    public UserDTO getLoggedUser(@PathVariable String login) {
+        UserDTO userDTO = new UserDTO();
+        User user = userService.getUserByLogin(login);
+        userDTO.setLogin(user.getLogin());
+        userDTO.setPassword(user.getPassword());
+        userDTO.setRole(user.getRole());
+        return userDTO;
     }
 
     @DeleteMapping("/delete/{id}")
@@ -47,13 +51,12 @@ public class AdminRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @PostMapping("/create")
     public void postAdd(@RequestBody UserDTO userDTO) {
         User newUser = new User();
         newUser.setLogin(userDTO.getLogin());
         newUser.setPassword(userDTO.getPassword());
-        newUser.setRoles(getRolesbyID(userDTO.getRole()));//??
+        newUser.setRoles(getRolesbyID(userDTO.getRole()));
         userService.insertUser(newUser);
     }
 
@@ -67,82 +70,19 @@ public class AdminRestController {
         userService.updateUser(updatedUser);
     }
 
-
-
-
     private Set<Role> getRolesbyID(Long id) {
         return roleService.getRolesbyID(id);
     }
 
     @GetMapping("/getRoleById/{id}")
     public Role getRoleById(@PathVariable Long id) {
-        return roleService.getRoleById(id);//тут риходит нулл теперь приходит нужное
+        return roleService.getRoleById(id);
     }
 
     @GetMapping("getUserById/{id}")
     public User getUserById(@PathVariable long id) {
         return userService.selectUser(id);
-
     }
-
-
-
-
-
-
-
-//
-//    @PostMapping(value = {"/doUpdate"})
-//    ResponseEntity<Void> updateUser(@RequestBody UserDTO userDTO) {
-//        Long id = userDTO.getRole();
-//        User updatedUser = userService.selectUser(userDTO.getId());//не работаеть юзер гет айди продебжаить в зхроме почему гет айди идет по другим юзерам тоже
-//        updatedUser.setId(userDTO.getId());
-//        updatedUser.setLogin(userDTO.getLogin());
-//        updatedUser.setPassword(userDTO.getPassword());
-//        //Long[] role = user.getRoles();
-//        updatedUser.setRoles((getRolesbyID(id)));//тут приходит роль налл
-//        userService.insertUser(updatedUser);
-//        return new ResponseEntity<Void>(HttpStatus.OK);
-//        //return "redirect:/admin";
-//    }
-//
-//    @GetMapping(value = {"/admin/edit/{id}"})
-//    public ResponseEntity<User> editUser(@PathVariable("id") Long id) {
-//        return ResponseEntity.ok(userService.selectUser(id));
-//    }
-//
-
-//
-//    @GetMapping(value = {"/user"})
-//    public ModelAndView userPage() {
-//        Authentication user = SecurityContextHolder.getContext().getAuthentication();
-//        String username = user.getName();
-//        ModelAndView model = new ModelAndView("user");
-//        model.addObject("user", user);
-//        return model;
-//    }
-//
-//    private Set<Role> getRolesg(String role) {
-//        Set<Role> roles = new HashSet<>();
-//        switch (role) {
-//            case "admin":
-//                roles.add(roleService.getRoleById(1L));
-//                break;
-//            case "user":
-//                roles.add(roleService.getRoleById(2L));//вместо рольсервис будет юезер
-//                break;
-//            default:
-//                roles.add(roleService.getRoleById(2L));
-//                break;
-//        }
-//        return roles;
-//    }
-//
-//    @GetMapping(value = "/error")
-//    public String accessDenied() {
-//        return "error";
-//    }
-
 
 }
 

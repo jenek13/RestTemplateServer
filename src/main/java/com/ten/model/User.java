@@ -42,36 +42,13 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-
-
-
-
-
-
-
     public User() {
     }
-
-    /*public User(Long id, String login, String password, boolean enabled, Set<Role> roles) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.enabled = enabled;
-        this.roles = roles;
-    }
-
-    public User(String login, String password, boolean enabled, Set<Role> roles) {
-        this.login = login;
-        this.password = password;
-        this.enabled = enabled;
-        this.roles = roles;
-    }*/
 
     public User(String login, String password, boolean enabled) {
         this.login = login;
         this.password = password;
         this.enabled = enabled;
-
     }
 
     public User(String login, String password, Set<Role> roles, boolean enabled) {
@@ -80,7 +57,6 @@ public class User implements UserDetails {
         this.roles = roles;
         this.enabled = enabled;
     }
-
 
     Long role;
 
@@ -110,10 +86,6 @@ public class User implements UserDetails {
         this.login = login;
         this.password = password;
     }
-
-
-
-
 
     public User(String login, String password) {
         this.login = login;
@@ -174,7 +146,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-
     public String toString() {
         return login;
     }
@@ -183,9 +154,7 @@ public class User implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         User user = (User) o;
-
         if (id != null ? !id.equals(user.id) : user.id != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
@@ -200,6 +169,5 @@ public class User implements UserDetails {
         result = 31 * result + (enabled != null ? enabled.hashCode() : 0);
         return result;
     }
-
 
 }

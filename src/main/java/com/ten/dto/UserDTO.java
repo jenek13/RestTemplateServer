@@ -1,6 +1,11 @@
 package com.ten.dto;
 
-public class UserDTO {
+import com.ten.model.Role;
+import java.util.HashSet;
+import java.util.Set;
+
+public class UserDTO  {
+
 
     private Long id;
     private String login;
@@ -10,6 +15,8 @@ public class UserDTO {
     public Long getId() {
         return id;
     }
+
+    private Set<Role> roles = new HashSet<>();
 
     public String getPassword() {
         return password;

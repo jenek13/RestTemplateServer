@@ -1,5 +1,6 @@
 package com.ten.dao;
 
+import com.ten.dto.UserDTO;
 import com.ten.model.User;
 import java.sql.SQLException;
 import java.util.List;

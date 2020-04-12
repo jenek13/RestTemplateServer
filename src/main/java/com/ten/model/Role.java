@@ -22,15 +22,9 @@ public class Role implements GrantedAuthority {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY, targetEntity = User.class)
-//    @JoinTable(name = "user_roles",
-//            joinColumns = {@JoinColumn(name = "role_id")}
-//            //inverseJoinColumns = {@JoinColumn(name = "user_id")}
-//            )
 
     @JsonIgnore
     private Set<User> users = new HashSet<>();
-    //private List<User> users = new ArrayList<>();
-
 
     public Role() {
     }
@@ -58,13 +52,9 @@ public class Role implements GrantedAuthority {
         return id;
     }
 
-
-
     public String getName() {
         return name;
     }
-
-
 
     @Override
     public String toString() {

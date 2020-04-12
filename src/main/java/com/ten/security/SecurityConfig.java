@@ -38,13 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN");
     }
 
-    /*@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("ad").password("{noop}ad").roles("ADMIN");
-    }*/
-
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder(11);
@@ -60,6 +53,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authProvider.setPasswordEncoder(encoder());
         return authProvider;
     }
-
 
 }

@@ -3,12 +3,10 @@ package com.ten.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.ten.model.User;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDAO {
 
     public UserDaoImpl() {
@@ -33,24 +31,22 @@ public class UserDaoImpl implements UserDAO {
         } catch (NoResultException e) {
             System.out.println(e);
         }
-        //return query.getSingleResult();
         return user;
     }
 
-
-
-
-
+    @Transactional
     @Override
     public void addUser(User user) {
         em.persist(user);
     }
 
+    @Transactional
     @Override
     public void editUser(User user) {
         em.merge(user);
     }
 
+    @Transactional
     @Override
     public void removeUser(long id) {
         Query query = em.createQuery("DELETE from User u WHERE u.id = :id");
